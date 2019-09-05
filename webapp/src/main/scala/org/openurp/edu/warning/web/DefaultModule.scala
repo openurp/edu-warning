@@ -19,12 +19,12 @@
 package org.openurp.edu.warning.web
 
 import org.beangle.cdi.bind.BindModule
-import org.openurp.edu.warning.web.action.{DepartSummaryAction, GradeWarningAction, SquadSummaryAction, StatMethodAction, StatRuleAction}
+import org.openurp.edu.warning.web.action._
 
 class DefaultModule extends BindModule {
 
-  protected override def binding() {
+  protected override def binding(): Unit = {
     bind(classOf[StatMethodAction], classOf[StatRuleAction], classOf[GradeWarningAction])
-    bind(classOf[DepartSummaryAction],classOf[SquadSummaryAction])
+    bind(classOf[DepartSummaryAction], classOf[SquadSummaryAction])
   }
 }

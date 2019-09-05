@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.openurp</groupId>
     <artifactId>openurp-parent</artifactId>
-    <version>0.3.3</version>
+    <version>0.3.6</version>
   </parent>
   <groupId>org.openurp.edu.warning</groupId>
   <artifactId>openurp-edu-warning-parent</artifactId>
@@ -18,12 +18,11 @@
   </modules>
 
   <properties>
-    <openurp.boot.version>0.0.7-SNAPSHOT</openurp.boot.version>
-    <openurp.app.version>0.1.21</openurp.app.version>
-    <openurp.api.version>0.11.0</openurp.api.version>
-  	<openurp.edu.base.version>0.0.28-SNAPSHOT</openurp.edu.base.version>
+    <openurp.app.version>0.1.22</openurp.app.version>
+    <openurp.api.version>0.11.1</openurp.api.version>
+    <openurp.edu.web.version>0.0.28</openurp.edu.web.version>
     <openurp.edu.grade.version>0.0.2-SNAPSHOT</openurp.edu.grade.version>
-    <spring.version>4.3.19.RELEASE</spring.version>
+    <spring.version>5.1.9.RELEASE</spring.version>
   </properties>
 
 </project>
