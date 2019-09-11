@@ -4,8 +4,9 @@
 [@b.form name="gradeWarningListForm" method="post" action=""]
     [@b.grid items=gradeWarnings var="gradeWarning"]
         [@b.gridbar]
-            bar.addItem("自动统计", "autoStat()");
-            bar.addItem("查看不及格课程信息", "courseGradeInfo()");
+					bar.addItem("自动统计", "autoStat()");
+					bar.addItem("查看不及格课程信息", "courseGradeInfo()");
+					bar.addItem("查看帮扶记录", "record()");
         [/@]
         [@b.row]
             [@b.boxcol /]
@@ -20,28 +21,43 @@
     [/@]
 [/@]
 <script>
-    function autoStat() {
-        var ids = bg.input.getCheckBoxValues("gradeWarning.id");
-        if (ids == null || ids == "") {
-            alert("请选择记录进行操作!");
-            return;
-        }
-        bg.form.addInput(document.gradeWarningListForm, "gradeWarningIds", ids);
-        bg.form.submit(document.gradeWarningListForm, "${b.url('!autoStat')}");
-    }
+	function autoStat() {
+		var ids = bg.input.getCheckBoxValues("gradeWarning.id");
+		if (ids == null || ids == "") {
+			alert("请选择记录进行操作!");
+			return;
+		}
+		bg.form.addInput(document.gradeWarningListForm, "gradeWarningIds", ids);
+		bg.form.submit(document.gradeWarningListForm, "${b.url('!autoStat')}");
+	}
 
-    function courseGradeInfo() {
-        var ids = bg.input.getCheckBoxValues("gradeWarning.id");
-        if (ids == null || ids == "") {
-            alert("请选择记录进行操作!");
-            return;
-        }
-        if (ids.indexOf(",") != -1) {
-            alert("请选择一条记录进行操作");
-            return;
-        }
-        bg.form.addInput(document.gradeWarningListForm, "gradeWarningIds", ids);
-        bg.form.submit(document.gradeWarningListForm, "${b.url('!courseGradeInfo')}");
-    }
+	function courseGradeInfo() {
+		var ids = bg.input.getCheckBoxValues("gradeWarning.id");
+		if (ids == null || ids == "") {
+			alert("请选择记录进行操作!");
+			return;
+		}
+		if (ids.indexOf(",") != -1) {
+			alert("请选择一条记录进行操作");
+			return;
+		}
+		bg.form.addInput(document.gradeWarningListForm, "gradeWarningIds", ids);
+		bg.form.submit(document.gradeWarningListForm, "${b.url('!courseGradeInfo')}");
+	}
+
+
+	function record() {
+		var ids = bg.input.getCheckBoxValues("gradeWarning.id");
+		if (ids == null || ids == "") {
+			alert("请选择记录进行操作!");
+			return;
+		}
+		if (ids.indexOf(",") != -1) {
+			alert("请选择一条记录进行操作");
+			return;
+		}
+		bg.form.addInput(document.gradeWarningListForm, "gradeWarningIds", ids);
+		bg.form.submit(document.gradeWarningListForm, "${b.url('record!search')}", "_blank");
+	}
 </script>
 [@b.foot/]

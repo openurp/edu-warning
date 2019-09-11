@@ -16,23 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.warning.model
+package org.openurp.edu.warning.web.action
 
-import org.beangle.data.model.LongId
-import org.beangle.data.model.pojo.{Named, Updated}
-import org.openurp.edu.base.model.Semester
+import org.beangle.webmvc.entity.action.RestfulAction
+import org.openurp.edu.base.web.ProjectSupport
+import org.openurp.edu.warning.model.File
 
-/**
- * 帮扶记录
- */
-class Record extends LongId with Updated with Named{
+class FileAction extends RestfulAction[File] with ProjectSupport {
 
-	var semester: Semester = _
 
-	var file: File = _
-
-	var description: String = _
-
-	//  var pictures: Buffer[Attachment] = Collections.newBuffer[Attachment]
-
+	override def indexSetting(): Unit = {
+		put("departments", getDeparts)
+		super.indexSetting()
+	}
 }

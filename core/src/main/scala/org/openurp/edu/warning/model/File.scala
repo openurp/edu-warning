@@ -18,21 +18,18 @@
  */
 package org.openurp.edu.warning.model
 
+import org.beangle.commons.collection.Collections
 import org.beangle.data.model.LongId
-import org.beangle.data.model.pojo.{Named, Updated}
-import org.openurp.edu.base.model.Semester
+import org.beangle.data.model.pojo.Updated
+import org.openurp.edu.base.model.Student
+
+import scala.collection.mutable
 
 /**
- * 帮扶记录
+ * 电子档案
  */
-class Record extends LongId with Updated with Named{
+class File extends LongId with Updated {
 
-	var semester: Semester = _
-
-	var file: File = _
-
-	var description: String = _
-
-	//  var pictures: Buffer[Attachment] = Collections.newBuffer[Attachment]
+	var std: Student = _
 
 }

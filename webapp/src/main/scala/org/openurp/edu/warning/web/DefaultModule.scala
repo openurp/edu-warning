@@ -23,8 +23,9 @@ import org.openurp.edu.warning.web.action._
 
 class DefaultModule extends BindModule {
 
-  protected override def binding(): Unit = {
-    bind(classOf[StatMethodAction], classOf[StatRuleAction], classOf[GradeWarningAction])
-    bind(classOf[DepartSummaryAction], classOf[SquadSummaryAction])
-  }
+	protected override def binding(): Unit = {
+		bind(classOf[StatMethodAction], classOf[StatRuleAction], classOf[GradeWarningAction])
+		bind(classOf[DepartSummaryAction], classOf[SquadSummaryAction])
+		bind(classOf[RecordAction], classOf[FileAction])
+	}
 }

@@ -22,21 +22,23 @@ import org.beangle.data.orm.MappingModule
 
 class DefaultMapping extends MappingModule {
 
-  def binding(): Unit = {
-    defaultIdGenerator("auto_increment")
+	def binding(): Unit = {
+		defaultIdGenerator("auto_increment")
 
-    bind[WarningType]
+		bind[WarningType]
 
-    bind[GradeWarning]
+		bind[GradeWarning]
 
-    bind[StatMethod].on(e => declare(
-      e.rules is depends("method")))
+		bind[StatMethod].on(e => declare(
+			e.rules is depends("method")))
 
-    bind[StatRule]
-    
-    bind[Attachment]
-    
-    bind[Record]
+		bind[StatRule]
 
-  }
+		bind[Attachment]
+
+		bind[Record]
+
+		bind[File]
+
+	}
 }
