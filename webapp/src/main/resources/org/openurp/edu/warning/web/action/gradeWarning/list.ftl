@@ -9,7 +9,7 @@
 					bar.addItem("查看帮扶记录", "record()");
 					bar.addItem("${b.text('action.export')}", "exportData()");
 					function exportData(){
-					var form = document.courseEvaluateStatSearchForm;
+					var form = document.gradeWarningSearchForm;
 					bg.form.addInput(form, "keys", "semester.code,std.user.code,std.user.name,std.state.squad.name,std.state.grade,std.state.department.name,std.state.major.name,std.state.direction.name,warningType.name,detail");
 					bg.form.addInput(form, "titles", "学年学期,学号,姓名,班级,年级,院系,专业,方向,预警类型,情况说明");
 					bg.form.addInput(form, "fileName", "学业预警详细名单");

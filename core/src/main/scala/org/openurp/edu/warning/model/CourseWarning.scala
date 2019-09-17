@@ -16,17 +16,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.warning.web
+package org.openurp.edu.warning.model
 
-import org.beangle.cdi.bind.BindModule
-import org.openurp.edu.warning.web.action._
+import org.beangle.data.model.LongId
+import org.beangle.data.model.pojo.Updated
+import org.openurp.edu.base.model.{Course, Semester}
 
-class DefaultModule extends BindModule {
+/**
+ * 课程预警
+ */
+class CourseWarning extends LongId with Updated {
 
-	protected override def binding(): Unit = {
-		bind(classOf[StatMethodAction], classOf[StatRuleAction], classOf[GradeWarningAction])
-		bind(classOf[DepartSummaryAction], classOf[SquadSummaryAction])
-		bind(classOf[RecordAction], classOf[FileAction])
-		bind(classOf[CourseWarningAction])
-	}
+	var semester: Semester = _
+
+	var course: Course = _
+	/**
+	 * 不及格人数
+	 */
+	var count: Int = _
+
 }

@@ -49,7 +49,6 @@ class GradeWarningAction extends RestfulAction[GradeWarning] with ProjectSupport
 
   override def getQueryBuilder: OqlBuilder[GradeWarning] = {
     val builder = OqlBuilder.from(classOf[GradeWarning], "gradeWarning")
-    val a = get("isGreen")
     get("isGreen").foreach(a => a match {
       case "0" => builder.where("gradeWarning.warningType.level=1 or gradeWarning.warningType.level=2")
       case "1" => builder.where("gradeWarning.warningType.level=0")

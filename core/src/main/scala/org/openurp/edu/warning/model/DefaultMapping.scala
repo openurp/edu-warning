@@ -40,5 +40,7 @@ class DefaultMapping extends MappingModule {
 
 		bind[File]
 
+		bind[CourseWarning]
+
 	}
 }

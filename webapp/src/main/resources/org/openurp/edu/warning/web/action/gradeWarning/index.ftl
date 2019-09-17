@@ -11,7 +11,7 @@
 <table class="indexpanel">
 	<tr>
 		<td class="index_view" style="width:180px">
-        [@b.form action="!search" name="courseEvaluateStatSearchForm" title="ui.searchForm" target="contentDiv" theme="search"]
+        [@b.form action="!search" name="gradeWarningSearchForm" title="ui.searchForm" target="contentDiv" theme="search"]
             [@edu_base.semester name="gradeWarning.semester.id" label="学年学期" value=currentSemester /]
             [@b.textfield label="姓名" name="gradeWarning.std.user.name" value="" /]
             [@b.textfield label="学号" name="gradeWarning.std.user.code" value="" /]
