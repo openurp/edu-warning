@@ -16,35 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.warning.model
+package org.openurp.edu.warning.service.impl
 
-import org.beangle.data.model.pojo.Named
-import org.beangle.data.model.pojo.Coded
-import org.beangle.data.model.IntId
+import org.openurp.edu.base.model.{Semester, Student}
 
-class WarningType extends IntId with Named {
-  
+class UnpassedCountStat extends AllGradeStat {
+
   /**
-   * 预警级别，分别对应0,2,1
+   * 统计自入学起不及格成绩门数总和
    */
-  var level: Int = _
-
-  def this(id: Int) {
-    this()
-    this.id = id
+  def stat(std: Student, semester: Semester): Float = {
+		getUnPassed(std, semester).size
   }
 
-  def this(id: Int, level: Int, name: String) {
-    this()
-    this.id = id
-    this.level = level
-    this.name = name
-  }
-
-}
-
-object WarningType {
-  val green = 1 //未预警
-  val yellow = 2
-  val red = 3
 }

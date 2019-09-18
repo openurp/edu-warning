@@ -16,16 +16,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.warning.service
+package org.openurp.edu.warning.service.impl
 
+import org.beangle.data.dao.OqlBuilder
+import org.beangle.data.dao.impl.BaseServiceImpl
 import org.openurp.edu.base.model.{Semester, Student}
-import org.openurp.edu.grade.course.domain.CourseGradeProvider
 import org.openurp.edu.grade.course.model.CourseGrade
+import org.openurp.edu.grade.course.service.impl.BestGradeFilter
+import org.openurp.edu.grade.model.Grade
+import org.openurp.edu.warning.service.UnpassedCreditsStatService
 
-trait UnpassedCreditsStatService {
+abstract class AllGradeStat extends BaseServiceImpl with UnpassedCreditsStatService {
+  var bestGradeFilter: BestGradeFilter = _
 
   def stat(std: Student, semester: Semester): Float
 
-  def getUnPassed(std: Student, semester: Semester): collection.Seq[CourseGrade]
+  def getUnPassed(std: Student, semester: Semester): collection.Seq[CourseGrade] = {
+    val query = OqlBuilder.from(classOf[CourseGrade], "grade")
+    query.where("grade.std = :std", std)
+    query.where("grade.status =:status", Grade.Status.Published)
+    query.where("grade.semester.beginOn <:beginOn", semester.beginOn)
+    bestGradeFilter.filter(entityDao.search(query)).filter(!_.passed)
+  }
 
 }

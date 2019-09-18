@@ -50,7 +50,7 @@ class GradeWarningAction extends RestfulAction[GradeWarning] with ProjectSupport
   override def getQueryBuilder: OqlBuilder[GradeWarning] = {
     val builder = OqlBuilder.from(classOf[GradeWarning], "gradeWarning")
     get("isGreen").foreach(a => a match {
-      case "0" => builder.where("gradeWarning.warningType.level=1 or gradeWarning.warningType.level=2")
+      case "0" => builder.where("gradeWarning.warningType.level>0")
       case "1" => builder.where("gradeWarning.warningType.level=0")
       case _ =>
     })
@@ -68,8 +68,8 @@ class GradeWarningAction extends RestfulAction[GradeWarning] with ProjectSupport
 
   def courseGradeInfo(): View = {
     val gradeWarnings = entityDao.find(classOf[GradeWarning], longIds("gradeWarning"))
-    //    val std = gradeWarnings.head.std
-    val grades = unpassedCreditsStat.getUnPassedGrades(gradeWarnings.head.std, getCurrentSemester)
+    val gw = gradeWarnings.head
+    val grades = unpassedCreditsStat.getUnPassed(gw.std, gw.semester)
     put("grades", grades)
     forward()
   }

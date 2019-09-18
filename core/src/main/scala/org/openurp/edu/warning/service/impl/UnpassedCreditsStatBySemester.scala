@@ -40,11 +40,11 @@ class UnpassedCreditsStatBySemester extends BaseServiceImpl with UnpassedCredits
 	 */
 
 	def stat(std: Student, semester: Semester): Float = {
-		val grades = getUnPassedGrades(std, semester)
+		val grades = getUnPassed(std, semester)
 		grades.map(grade => grade.course.credits).sum
 	}
 
-	def getUnPassedGrades(std: Student, semester: Semester): collection.Seq[CourseGrade] = {
+	def getUnPassed(std: Student, semester: Semester): collection.Seq[CourseGrade] = {
 		val query = OqlBuilder.from(classOf[CourseGrade], "grade")
 		query.where("grade.std = :std", std)
 		query.where("grade.status =:status", Grade.Status.Published)

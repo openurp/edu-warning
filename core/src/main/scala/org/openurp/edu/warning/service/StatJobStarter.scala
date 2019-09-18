@@ -25,17 +25,15 @@ import org.beangle.commons.lang.Throwables
 class StatJobStarter extends Initializing with Logging{
 
   var autoBatchStat: AutoBatchStat = _
-  /** 间隔 60 secs 自动刷新 */
+  /** 间隔 15 secs 自动刷新 */
   val refreshInterval = 1000 * 15;
 
   def init(): Unit = {
     System.out.println("gew job starting...");
     new Thread(new Runnable() {
-
       def run(): Unit = {
         while (true) {
           try {
-            System.out.println("gew job started");
             autoBatchStat.execute()
             Thread.sleep(refreshInterval);
           } catch {

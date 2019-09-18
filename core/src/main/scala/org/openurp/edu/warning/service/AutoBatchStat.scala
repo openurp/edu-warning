@@ -18,16 +18,12 @@
  */
 package org.openurp.edu.warning.service
 
-import org.beangle.data.dao.EntityDao
-import org.beangle.data.dao.OqlBuilder
-import org.openurp.edu.base.model.Student
-import org.openurp.edu.warning.model.GradeWarning
-import org.openurp.edu.warning.service.impl.GradeWarningStat
-import org.openurp.edu.base.model.Project
-import org.openurp.edu.base.model.Semester
-import java.time.Instant
 import java.time.LocalDate
-import java.util.Date
+
+import org.beangle.commons.collection.Collections
+import org.beangle.data.dao.{EntityDao, OqlBuilder}
+import org.openurp.edu.base.model.{Project, Semester, Student}
+import org.openurp.edu.warning.model.GradeWarning
 
 class AutoBatchStat extends AbstractJob {
 
@@ -35,21 +31,23 @@ class AutoBatchStat extends AbstractJob {
 
   var gradeWarningservice: GradeWarningService = _
 
-  val bulkSize = 50
+  val bulkSize = 100
 
   protected def doExecute(): Unit = {
     val format = new java.text.SimpleDateFormat("yyyy-MM-dd")
+    val today = format.parse(LocalDate.now().toString).toInstant
     val query = OqlBuilder.from(classOf[Student], "s")
-    query.where("not exists(from " + classOf[GradeWarning].getName + " r where r.std=s and r.updatedAt > :updatedAt)", format.parse(LocalDate.now().toString()).toInstant())
+    query.where("not exists(from " + classOf[GradeWarning].getName + " r where r.std=s and r.updatedAt > :updatedAt)", today)
     query.where("s.state.inschool=true")
     query.orderBy("s.user.code")
     query.limit(1, bulkSize)
     val stds = entityDao.search(query)
     val startAt = System.currentTimeMillis()
-    logger.info("start auto gws ...")
+    val semesters = Collections.newMap[Project, Semester]
 
     stds.foreach(std => {
-      gradeWarningservice.autoStat(std, getCurrentSemester(std.project))
+      val semster = semesters.getOrElseUpdate(std.project, getCurrentSemester(std.project))
+      gradeWarningservice.autoStat(std, semster)
     })
 
     if (stds.size > 0) {

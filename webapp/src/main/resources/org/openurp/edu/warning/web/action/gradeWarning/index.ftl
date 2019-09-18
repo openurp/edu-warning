@@ -13,8 +13,8 @@
 		<td class="index_view" style="width:180px">
         [@b.form action="!search" name="gradeWarningSearchForm" title="ui.searchForm" target="contentDiv" theme="search"]
             [@edu_base.semester name="gradeWarning.semester.id" label="学年学期" value=currentSemester /]
-            [@b.textfield label="姓名" name="gradeWarning.std.user.name" value="" /]
             [@b.textfield label="学号" name="gradeWarning.std.user.code" value="" /]
+            [@b.textfield label="姓名" name="gradeWarning.std.user.name" value="" /]
             [@b.select name="gradeWarning.std.state.department.id" label="院系" items=departments empty="..."/]
             [@b.textfield label="班级" name="gradeWarning.std.state.squad.name" value="" /]
             [@b.select name="gradeWarning.warningType.id" label="预警类型" items=warningTypes empty="..."/]

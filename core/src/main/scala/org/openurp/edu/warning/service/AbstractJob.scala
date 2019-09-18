@@ -32,7 +32,7 @@ abstract class AbstractJob extends Logging {
 
   def getSession(): Session = {
     val session = sessionFactory.openSession()
-    session.setFlushMode(FlushMode.MANUAL)
+    session.setHibernateFlushMode(FlushMode.MANUAL)
     session
   }
 

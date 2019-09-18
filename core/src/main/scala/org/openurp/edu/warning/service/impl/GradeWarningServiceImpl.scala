@@ -18,25 +18,19 @@
  */
 package org.openurp.edu.warning.service.impl
 
-import java.time.{Instant, LocalDate}
+import java.time.Instant
 
-import org.beangle.cdi.Container
-import org.beangle.cdi.ContainerAware
+import org.beangle.cdi.{Container, ContainerAware}
 import org.beangle.commons.collection.Collections
-import org.beangle.data.dao.EntityDao
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.dao.impl.BaseServiceImpl
-import org.openurp.edu.base.model.{Project, Semester, Student}
-import org.openurp.edu.warning.model.GradeWarning
-import org.openurp.edu.warning.model.StatMethod
-import org.openurp.edu.warning.model.WarningType
-import org.openurp.edu.warning.service.GradeWarningService
-import org.openurp.edu.warning.service.UnpassedCreditsStatService
+import org.openurp.edu.base.model.{Semester, Student}
+import org.openurp.edu.warning.model.{GradeWarning, StatMethod, WarningType}
+import org.openurp.edu.warning.service.{GradeWarningService, UnpassedCreditsStatService}
 
-class GradeWarningStat extends BaseServiceImpl with GradeWarningService with ContainerAware {
+class GradeWarningServiceImpl extends BaseServiceImpl with GradeWarningService with ContainerAware {
 
   var container: Container = _
-
 
   def autoStat(std: Student, semester: Semester): Unit = {
     val warningBuilder = OqlBuilder.from(classOf[GradeWarning], "gw")
@@ -53,24 +47,33 @@ class GradeWarningStat extends BaseServiceImpl with GradeWarningService with Con
     val detailString = new StringBuilder
     var brString = ""
     methods.foreach(method => {
-      var methodBean = container.getBeans(classOf[UnpassedCreditsStatService])(method.serviceName)
-      val credits = methodBean.stat(std, semester)
+      val methodBean = container.getBeans(classOf[UnpassedCreditsStatService])(method.serviceName)
+      val data = methodBean.stat(std, semester)
+      var warned = false
       ruleMap(method).foreach(statRule => {
-        if (credits >= statRule.minValue && credits <= statRule.maxValue) {
-          typeName = statRule.warningType.name
-          typeList += statRule.warningType
+        if (data >= statRule.minValue && data <= statRule.maxValue) {
+          if (statRule.warningType.level > 0) {
+            warned = true
+            typeName = statRule.warningType.name
+            typeList += statRule.warningType
+          }
         }
       })
-      detailString.append(brString)
-      detailString.append(method.name).append(" ").append(credits).append(" ").append(typeName)
-      brString = ";"
+      if (warned) {
+        detailString.append(brString)
+        detailString.append(method.name).append(" ").append(data)
+        brString = ";"
+      }
     })
-    val a = typeList.sortBy(f => f.level).reverse
     gradeWarning.semester = semester
     gradeWarning.std = std
     gradeWarning.project = std.project
     gradeWarning.updatedAt = Instant.now()
-    gradeWarning.warningType = typeList.sortBy(f => f.level).reverse.head
+    if (typeList.isEmpty) {
+      gradeWarning.warningType = new WarningType(WarningType.green)
+    } else {
+      gradeWarning.warningType = typeList.sortBy(f => f.level).reverse.head
+    }
     gradeWarning.detail = detailString.toString()
     entityDao.saveOrUpdate(gradeWarning)
   }
