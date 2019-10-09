@@ -69,7 +69,7 @@
 						</td>
 						<td>${departTotal!}</td>
 						<td>
-                [@b.a href="grade-warning!search?gradeWarning.std.state.department.id=" + depart.id + "&gradeWarning.semester.id=" + currentSemester.id + "&gradeWarning.warningType.id=" + REDID target="_blank"]
+                [@b.a href="depart-summary!warningList?department.id=" + depart.id + "&semester.id=" + currentSemester.id + "&warningType.id=" + REDID target="_blank"]
                     ${(datas.get(depart.id).get(REDID))!}
                 [/@]
 						</td>
@@ -79,7 +79,7 @@
                 [/#if]
 						</td>
 						<td>
-                [@b.a href="grade-warning!search?gradeWarning.std.state.department.id=" + depart.id + "&gradeWarning.semester.id=" + currentSemester.id + "&gradeWarning.warningType.id=" + YELLOWID target="_blank"]
+                [@b.a href="depart-summary!warningList?department.id=" + depart.id + "&semester.id=" + currentSemester.id + "&warningType.id=" + YELLOWID target="_blank"]
                     ${(datas.get(depart.id).get(YELLOWID))!}
                 [/@]
 						</td>
@@ -89,7 +89,7 @@
                 [/#if]
 						</td>
 						<td>
-                [@b.a href="grade-warning!search?gradeWarning.std.state.department.id=" + depart.id + "&gradeWarning.semester.id=" + currentSemester.id + "&gradeWarning.warningType.id=" + GREENID target="_blank"]
+                [@b.a href="depart-summary!warningList?department.id=" + depart.id + "&semester.id=" + currentSemester.id + "&warningType.id=" + GREENID target="_blank"]
                     ${(datas.get(depart.id).get(GREENID))!}
                 [/@]
 						</td>

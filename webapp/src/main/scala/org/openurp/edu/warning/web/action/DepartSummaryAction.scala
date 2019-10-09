@@ -29,32 +29,46 @@ import org.openurp.edu.warning.model.{GradeWarning, WarningType}
 
 class DepartSummaryAction extends RestfulAction[GradeWarning] with ProjectSupport {
 
-  override def index(): View = {
-    val semesterId = getInt("semester.id")
-    val semester = {
-      semesterId match {
-        case None => getCurrentSemester
-        case _ => entityDao.get(classOf[Semester], semesterId.get)
-      }
-    }
-    put("currentSemester", semester)
+	override def index(): View = {
+		val semesterId = getInt("semester.id")
+		val semester = {
+			semesterId match {
+				case None => getCurrentSemester
+				case _ => entityDao.get(classOf[Semester], semesterId.get)
+			}
+		}
+		put("currentSemester", semester)
 
-    val builder = OqlBuilder.from(classOf[GradeWarning].getName, "gw")
-    builder.where("gw.semester=:semester", semester)
-    builder.select("gw.std.state.department.id,gw.warningType.id,count(*)")
-    builder.groupBy("gw.std.state.department.id,gw.warningType.id")
-    builder.orderBy("gw.std.state.department.id,gw.warningType.id")
-    val datas: Seq[Array[_]] = entityDao.search(builder)
-    val newDatas = datas.groupBy(_ (0)).map { e =>
-      (e._1, e._2.map(f => (f(1), f(2))).toMap)
-    }
-    val departs = entityDao.find(classOf[Department], newDatas.keys.asInstanceOf[Iterable[Int]])
-    put("datas", newDatas)
-    put("departs", departs)
-    put("GREENID", WarningType.green)
-    put("REDID", WarningType.red)
-    put("YELLOWID", WarningType.yellow)
-    forward()
-  }
+		val builder = OqlBuilder.from(classOf[GradeWarning].getName, "gw")
+		builder.where("gw.semester=:semester", semester)
+		builder.select("gw.std.state.department.id,gw.warningType.id,count(*)")
+		builder.groupBy("gw.std.state.department.id,gw.warningType.id")
+		builder.orderBy("gw.std.state.department.id,gw.warningType.id")
+		val datas: Seq[Array[_]] = entityDao.search(builder)
+		val newDatas = datas.groupBy(_ (0)).map { e =>
+			(e._1, e._2.map(f => (f(1), f(2))).toMap)
+		}
+		val departs = entityDao.find(classOf[Department], newDatas.keys.asInstanceOf[Iterable[Int]])
+		put("datas", newDatas)
+		put("departs", departs)
+		put("GREENID", WarningType.green)
+		put("REDID", WarningType.red)
+		put("YELLOWID", WarningType.yellow)
+		forward()
+	}
+
+
+	def warningList(): View = {
+		val departId = intId("department")
+		val semesterId = intId("semester")
+		val typeId = intId("warningType")
+		val builder = OqlBuilder.from(classOf[GradeWarning].getName, "gw")
+		builder.where("gw.semester.id=:semesterId", semesterId)
+		builder.where("gw.std.state.department.id=:departId", departId)
+		builder.where("gw.warningType.id=:typeId", typeId)
+		val gradeWarnings = entityDao.search(builder)
+		put("warnings", gradeWarnings)
+		forward()
+	}
 
 }

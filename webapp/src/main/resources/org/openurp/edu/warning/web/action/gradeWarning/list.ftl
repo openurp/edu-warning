@@ -7,14 +7,7 @@
 					bar.addItem("自动统计", "autoStat()");
 					bar.addItem("查看不及格课程信息", "courseGradeInfo()");
 					bar.addItem("查看帮扶记录", "record()");
-					bar.addItem("${b.text('action.export')}", "exportData()");
-					function exportData(){
-					var form = document.gradeWarningSearchForm;
-					bg.form.addInput(form, "keys", "semester.code,std.user.code,std.user.name,std.state.squad.name,std.state.grade,std.state.department.name,std.state.major.name,std.state.direction.name,warningType.name,detail");
-					bg.form.addInput(form, "titles", "学年学期,学号,姓名,班级,年级,院系,专业,方向,预警类型,情况说明");
-					bg.form.addInput(form, "fileName", "学业预警详细名单");
-					bg.form.submit(form, "${b.url('!export')}","_self");
-					}
+					bar.addItem("${b.text("action.export")}",action.exportData("semester.code:学年学期,std.user.code:学号,std.user.name:姓名,std.state.squad.name:班级,std.state.grade:年级,std.state.department.name:院系,std.state.major.name:专业,std.state.direction.name:方向,warningType.name:预警类型,detail:情况说明",null,'fileName=学业预警详细名单'));
         [/@]
         [@b.row]
             [@b.boxcol /]
@@ -25,7 +18,7 @@
             [@b.col width="15%" property="std.state.department.name" title="院系"/]
             [@b.col width="10%" property="warningType.name" title="预警类别"/]
             [@b.col width="30%" property="detail" title="情况说明" style="white-space:pre"]
-              [@b.a href="!courseGradeInfo?gradeWarningIds="+gradeWarning.id]${gradeWarning.detail!}[/@]
+                [@b.a href="!courseGradeInfo?gradeWarningIds="+gradeWarning.id]${gradeWarning.detail!}[/@]
             [/@]
         [/@]
     [/@]
