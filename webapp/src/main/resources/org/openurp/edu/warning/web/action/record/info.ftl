@@ -20,6 +20,19 @@
 		<td class="title" width="20%">记录</td>
 		<td class="content">${record.description}</td>
 	</tr>
+	<tr>
+		<td class="title" width="20%">附件</td>
+		<td class="content">
+        [#if record.attachments??]
+            [#list record.attachments as attachment]
+							<a href="${b.url("!attachment?attachmentId="+attachment.id)}"
+								 style="margin-left:auto">${attachment.name!}</a>
+						<a href="${base}/record/deleteAttach?attachmentId=${attachment.id}&recordId=${record.id}">
+								删除</a>[#if attachment_has_next]<br>[/#if]
+            [/#list]
+        [/#if]
+		</td>
+	</tr>
 </table>
 
 [@b.foot/]

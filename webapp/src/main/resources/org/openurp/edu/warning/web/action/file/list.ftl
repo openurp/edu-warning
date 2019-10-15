@@ -1,7 +1,7 @@
 [#ftl]
 [@b.head/]
 [@b.form name="FileListForm" method="post" action=""]
-    [@b.grid items=files var="file"]
+    [@b.grid items=electronicFiles var="file"]
         [@b.gridbar]
 					bar.addItem("查看帮扶记录", "record()");
 					bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));

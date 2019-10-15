@@ -18,16 +18,22 @@
  */
 package org.openurp.edu.warning.web.action
 
+import java.io.{File, FileOutputStream}
 import java.time.Instant
 
-import org.beangle.commons.collection.Collections
+import javax.servlet.http.Part
+import org.beangle.commons.codec.digest.Digests
+import org.beangle.commons.io.IOs
+import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.webmvc.api.annotation.{mapping, param}
-import org.beangle.webmvc.api.view.View
+import org.beangle.webmvc.api.annotation.mapping
+import org.beangle.webmvc.api.context.Params
+import org.beangle.webmvc.api.view.{Stream, View}
 import org.beangle.webmvc.entity.action.RestfulAction
 import org.openurp.edu.base.model.Semester
 import org.openurp.edu.base.web.ProjectSupport
-import org.openurp.edu.warning.model.{File, GradeWarning, Record}
+import org.openurp.edu.warning.Constants
+import org.openurp.edu.warning.model.{Attachment, ElectronicFile, GradeWarning, Record}
 
 class RecordAction extends RestfulAction[Record] with ProjectSupport {
 
@@ -87,21 +93,61 @@ class RecordAction extends RestfulAction[Record] with ProjectSupport {
 	override def saveAndRedirect(record: Record): View = {
 		get("gradeWarning.id").foreach(gradeWarningId => {
 			val gradeWarnings = entityDao.find(classOf[GradeWarning], gradeWarningId.toLong)
-			val builder = OqlBuilder.from(classOf[File], "file")
+			val builder = OqlBuilder.from(classOf[ElectronicFile], "file")
 			builder.where("file.std=:std", gradeWarnings.head.std)
 			val files = entityDao.search(builder)
 			if (files.isEmpty) {
-				val file = new File
+				val file = new ElectronicFile
 				file.std = gradeWarnings.head.std
 				file.updatedAt = Instant.now
-				//					file.records += record
 				record.file = file
 				entityDao.saveOrUpdate(file)
 			} else {
 				record.file = files.head
 			}
 		})
+		val base = Constants.AttachmentBase + "record/"
+		val aParts = Params.getAll("attachment").asInstanceOf[List[Part]]
+		aParts foreach { part =>
+			if (part.getSize.toInt > 0) {
+				val attachment = new Attachment()
+				attachment.fileSize = part.getSize.toInt
+				val ext = Strings.substringAfterLast(part.getSubmittedFileName, ".")
+				attachment.path = Digests.md5Hex(part.getSubmittedFileName) + (if (Strings.isEmpty(ext)) "" else "." + ext)
+				attachment.name = part.getSubmittedFileName
+				attachment.updatedAt = Instant.now()
+				IOs.copy(part.getInputStream, new FileOutputStream(base + attachment.path))
+				entityDao.saveOrUpdate(attachment)
+				record.attachments += attachment
+			}
+		}
 		super.saveAndRedirect(record)
+	}
+
+
+	@mapping("attachment/{attachmentId}")
+	def attachment(attachmentId: Long): View = {
+		val attach = entityDao.get(classOf[Attachment], attachmentId);
+		val base = Constants.AttachmentBase + "record/"
+		Stream(new File(base + attach.path), attach.name)
+	}
+
+
+	def deleteAttach(): View = {
+		val base = Constants.AttachmentBase + "record/"
+		val recordId = get("recordId").orNull
+		get("attachmentId").foreach { attachmentId =>
+			val attachment = entityDao.get(classOf[Attachment], attachmentId.toLong)
+			get("recordId").foreach { recordId =>
+				val record = entityDao.get(classOf[Record], recordId.toLong)
+				record.attachments -= attachment
+				entityDao.saveOrUpdate(record)
+			}
+			entityDao.remove(attachment)
+			val file = new File(base + attachment.path)
+			file.delete()
+		}
+		redirect("info", s"&id=${recordId}", "info.save.success")
 	}
 
 }

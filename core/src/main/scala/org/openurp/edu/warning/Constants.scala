@@ -16,31 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.warning.model
+package org.openurp.edu.warning
 
-import org.beangle.data.orm.MappingModule
+import org.beangle.commons.lang.SystemInfo
 
-class DefaultMapping extends MappingModule {
-
-	def binding(): Unit = {
-		defaultIdGenerator("auto_increment")
-
-		bind[WarningType]
-
-		bind[GradeWarning]
-
-		bind[StatMethod].on(e => declare(
-			e.rules is depends("method")))
-
-		bind[StatRule]
-
-		bind[Attachment]
-
-		bind[Record]
-
-		bind[ElectronicFile]
-
-		bind[CourseWarning]
-
-	}
+object Constants {
+  val AttachmentBase = SystemInfo.user.home + "/warning/"
 }

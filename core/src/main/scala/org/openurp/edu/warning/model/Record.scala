@@ -18,9 +18,12 @@
  */
 package org.openurp.edu.warning.model
 
+import org.beangle.commons.collection.Collections
 import org.beangle.data.model.LongId
 import org.beangle.data.model.pojo.{Named, Updated}
 import org.openurp.edu.base.model.Semester
+
+import scala.collection.mutable.Buffer
 
 /**
  * 帮扶记录
@@ -29,10 +32,10 @@ class Record extends LongId with Updated with Named{
 
 	var semester: Semester = _
 
-	var file: File = _
+	var file: ElectronicFile = _
 
 	var description: String = _
 
-	//  var pictures: Buffer[Attachment] = Collections.newBuffer[Attachment]
+	var attachments: Buffer[Attachment] = Collections.newBuffer[Attachment]
 
 }

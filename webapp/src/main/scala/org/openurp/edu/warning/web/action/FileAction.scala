@@ -20,9 +20,9 @@ package org.openurp.edu.warning.web.action
 
 import org.beangle.webmvc.entity.action.RestfulAction
 import org.openurp.edu.base.web.ProjectSupport
-import org.openurp.edu.warning.model.File
+import org.openurp.edu.warning.model.ElectronicFile
 
-class FileAction extends RestfulAction[File] with ProjectSupport {
+class FileAction extends RestfulAction[ElectronicFile] with ProjectSupport {
 
 
 	override def indexSetting(): Unit = {

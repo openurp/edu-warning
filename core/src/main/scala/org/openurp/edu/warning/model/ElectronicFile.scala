@@ -28,7 +28,7 @@ import scala.collection.mutable
 /**
  * 电子档案
  */
-class File extends LongId with Updated {
+class ElectronicFile extends LongId with Updated {
 
 	var std: Student = _
 
