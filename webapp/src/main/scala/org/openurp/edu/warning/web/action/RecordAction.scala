@@ -51,9 +51,10 @@ class RecordAction extends RestfulAction[Record] with ProjectSupport {
 	}
 
 	override def search(): View = {
-		val allGradeWarning = entityDao.getAll(classOf[GradeWarning])
-		val gradeWarningMap = allGradeWarning.map(t => (t.semester, t)).toMap
-		put("gradeWarningMap", gradeWarningMap)
+		//		val allGradeWarning = entityDao.getAll(classOf[GradeWarning])
+		//		val a = allGradeWarning.map(t => (t.semester, t))
+		//		val gradeWarningMap = a.map(t => (t._2.std, t)).toMap
+		//		put("gradeWarningMap", gradeWarningMap)
 		val gradeWarningIds = longIds("gradeWarning")
 		val fileIds = longIds("file")
 		if (!gradeWarningIds.isEmpty) {
@@ -95,6 +96,8 @@ class RecordAction extends RestfulAction[Record] with ProjectSupport {
 			val gradeWarnings = entityDao.find(classOf[GradeWarning], gradeWarningId.toLong)
 			val builder = OqlBuilder.from(classOf[ElectronicFile], "file")
 			builder.where("file.std=:std", gradeWarnings.head.std)
+			record.warningType = gradeWarnings.head.warningType
+			record.detail = gradeWarnings.head.detail
 			val files = entityDao.search(builder)
 			if (files.isEmpty) {
 				val file = new ElectronicFile

@@ -13,6 +13,8 @@
         [@b.textfield name="record.name" label="记录名称" value="${record.name!}" required="true"/]
         [@b.textfield name="record.std.user.code" label="学号" value="${(gradeWarning.std.user.code)!}" disabled = "disabled"/]
         [@b.textfield name="record.std.user.name" label="姓名" value="${(gradeWarning.std.user.name)!}" disabled = "disabled"/]
+        [@b.textfield name="record.warningType.name" label="预警类别" value="${(gradeWarning.warningType.name)!}" disabled = "disabled"/]
+        [@b.textfield name="record.detail" label="预警情况说明" value="${(gradeWarning.detail)!}" disabled = "disabled"/]
         [@b.textarea name="record.description" label="记录" value="${record.description!}" required="true" rows="20" cols="100"/]
         [@b.field label="附件" ]
 					<td>

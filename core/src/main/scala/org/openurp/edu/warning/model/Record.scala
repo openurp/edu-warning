@@ -38,4 +38,11 @@ class Record extends LongId with Updated with Named{
 
 	var attachments: Buffer[Attachment] = Collections.newBuffer[Attachment]
 
+	var warningType: WarningType = _
+
+	/**
+	 * 具体不及格学分情况描述
+	 */
+	var detail: String = _
+
 }
