@@ -4,10 +4,11 @@
 [@b.form name="gradeWarningListForm" method="post" action=""]
     [@b.grid items=gradeWarnings var="gradeWarning"]
         [@b.gridbar]
-					bar.addItem("自动统计", "autoStat()");
-					bar.addItem("查看不及格课程信息", "courseGradeInfo()");
-					bar.addItem("查看帮扶记录", "record()");
-					bar.addItem("${b.text("action.export")}",action.exportData("semester.code:学年学期,std.user.code:学号,std.user.name:姓名,std.state.squad.name:班级,std.state.grade:年级,std.state.department.name:院系,std.state.major.name:专业,std.state.direction.name:方向,warningType.name:预警类型,detail:情况说明",null,'fileName=学业预警详细名单'));
+            bar.addItem("自动统计", "autoStat()");
+            bar.addItem("查看不及格课程信息", "courseGradeInfo()");
+            bar.addItem("查看帮扶记录", "record()");
+            bar.addItem("${b.text("action.export")}",action.exportData("semester.code:学年学期,std.user.code:学号,std.user.name:姓名,std.state.squad.name:班级,std.state.grade:年级,std.state.department.name:院系,std.state.major.name:专业,std.state.direction.name:方向,warningType.name:预警类型,detail:情况说明",null,'fileName=学业预警详细名单'));
+            bar.addItem("删除",action.remove("确认删除?"));
         [/@]
         [@b.row]
             [@b.boxcol /]

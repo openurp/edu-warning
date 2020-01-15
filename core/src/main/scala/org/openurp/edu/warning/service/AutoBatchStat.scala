@@ -39,6 +39,7 @@ class AutoBatchStat extends AbstractJob {
     val query = OqlBuilder.from(classOf[Student], "s")
     query.where("not exists(from " + classOf[GradeWarning].getName + " r where r.std=s and r.updatedAt > :updatedAt)", today)
     query.where("s.state.inschool=true")
+    query.where(":today between s.state.beginOn and s.state.endOn",LocalDate.now())
     query.orderBy("s.user.code")
     query.limit(1, bulkSize)
     val stds = entityDao.search(query)

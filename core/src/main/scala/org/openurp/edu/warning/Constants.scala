@@ -18,8 +18,8 @@
  */
 package org.openurp.edu.warning
 
-import org.beangle.commons.lang.SystemInfo
+import org.openurp.app.Urp
 
 object Constants {
-  val AttachmentBase = SystemInfo.user.home + "/warning/"
+  val AttachmentBase = Urp.home + "/edu/warning/"
 }

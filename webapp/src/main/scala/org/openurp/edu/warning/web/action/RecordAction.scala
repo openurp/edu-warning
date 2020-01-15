@@ -23,7 +23,7 @@ import java.time.Instant
 
 import javax.servlet.http.Part
 import org.beangle.commons.codec.digest.Digests
-import org.beangle.commons.io.IOs
+import org.beangle.commons.io.{Dirs, Files, IOs}
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.api.annotation.mapping
@@ -110,6 +110,7 @@ class RecordAction extends RestfulAction[Record] with ProjectSupport {
 			}
 		})
 		val base = Constants.AttachmentBase + "record/"
+		Dirs.on(base).mkdirs()
 		val aParts = Params.getAll("attachment").asInstanceOf[List[Part]]
 		aParts foreach { part =>
 			if (part.getSize.toInt > 0) {

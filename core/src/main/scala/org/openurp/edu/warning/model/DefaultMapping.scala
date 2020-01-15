@@ -29,8 +29,9 @@ class DefaultMapping extends MappingModule {
 
 		bind[GradeWarning]
 
-		bind[StatMethod].on(e => declare(
-			e.rules is depends("method")))
+		bind[StatMethod] declare { e =>
+			e.rules is depends("method")
+		}
 
 		bind[StatRule]
 
