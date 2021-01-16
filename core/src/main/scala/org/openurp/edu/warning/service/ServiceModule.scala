@@ -20,7 +20,7 @@ package org.openurp.edu.warning.service
 
 import org.beangle.cdi.bind.BindModule
 import org.openurp.edu.grade.course.service.impl.{BestGradeFilter, CourseGradeProviderImpl}
-import org.openurp.edu.program.plan.impl.AlternativeCourseProviderImpl
+import org.openurp.edu.program.domain.DefaultAlternativeCourseProvider
 import org.openurp.edu.warning.service.impl.{GradeWarningServiceImpl, UnpassedCountStat, UnpassedCreditsStat, UnpassedCreditsStatBySemester}
 
 class ServiceModule extends BindModule {
@@ -39,7 +39,7 @@ class ServiceModule extends BindModule {
 
     bind("bestGradeFilter", classOf[BestGradeFilter])
 
-    bind("alternativeCourseProvider", classOf[AlternativeCourseProviderImpl])
+    bind("alternativeCourseProvider", classOf[DefaultAlternativeCourseProvider])
 
   }
 

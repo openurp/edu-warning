@@ -21,17 +21,17 @@ package org.openurp.edu.warning.web.action
 import java.io.{File, FileOutputStream}
 import java.time.Instant
 
-import javax.servlet.http.Part
+import jakarta.servlet.http.Part
 import org.beangle.commons.codec.digest.Digests
-import org.beangle.commons.io.{Dirs, Files, IOs}
+import org.beangle.commons.io.{Dirs, IOs}
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.api.annotation.mapping
 import org.beangle.webmvc.api.context.Params
 import org.beangle.webmvc.api.view.{Stream, View}
 import org.beangle.webmvc.entity.action.RestfulAction
-import org.openurp.edu.base.model.Semester
-import org.openurp.edu.base.web.ProjectSupport
+import org.openurp.base.edu.model.Semester
+import org.openurp.boot.edu.helper.ProjectSupport
 import org.openurp.edu.warning.Constants
 import org.openurp.edu.warning.model.{Attachment, ElectronicFile, GradeWarning, Record}
 
@@ -57,7 +57,7 @@ class RecordAction extends RestfulAction[Record] with ProjectSupport {
 		//		put("gradeWarningMap", gradeWarningMap)
 		val gradeWarningIds = longIds("gradeWarning")
 		val fileIds = longIds("file")
-		if (!gradeWarningIds.isEmpty) {
+		if (gradeWarningIds.nonEmpty) {
 			val gradeWarnings = entityDao.find(classOf[GradeWarning], gradeWarningIds)
 			put("std", gradeWarnings.head.std)
 			val builder = OqlBuilder.from(classOf[Record], "record")
@@ -65,7 +65,7 @@ class RecordAction extends RestfulAction[Record] with ProjectSupport {
 			val records = entityDao.search(builder)
 			put("records", records)
 			forward()
-		} else if (!fileIds.isEmpty) {
+		} else if (fileIds.nonEmpty) {
 			val builder = OqlBuilder.from(classOf[Record], "record")
 			builder.where("record.file.id=:fileId", fileIds)
 			val records = entityDao.search(builder)
@@ -131,7 +131,7 @@ class RecordAction extends RestfulAction[Record] with ProjectSupport {
 
 	@mapping("attachment/{attachmentId}")
 	def attachment(attachmentId: Long): View = {
-		val attach = entityDao.get(classOf[Attachment], attachmentId);
+		val attach = entityDao.get(classOf[Attachment], attachmentId)
 		val base = Constants.AttachmentBase + "record/"
 		Stream(new File(base + attach.path), attach.name)
 	}

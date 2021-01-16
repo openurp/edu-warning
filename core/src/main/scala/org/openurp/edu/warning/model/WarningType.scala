@@ -18,23 +18,22 @@
  */
 package org.openurp.edu.warning.model
 
-import org.beangle.data.model.pojo.Named
-import org.beangle.data.model.pojo.Coded
 import org.beangle.data.model.IntId
+import org.beangle.data.model.pojo.Named
 
 class WarningType extends IntId with Named {
-  
+
   /**
    * 预警级别，分别对应0,2,1
    */
   var level: Int = _
 
-  def this(id: Int) {
+  def this(id: Int) = {
     this()
     this.id = id
   }
 
-  def this(id: Int, level: Int, name: String) {
+  def this(id: Int, level: Int, name: String) = {
     this()
     this.id = id
     this.level = level

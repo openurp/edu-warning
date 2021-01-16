@@ -22,8 +22,8 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.api.view.View
 import org.beangle.webmvc.entity.action.RestfulAction
 import org.openurp.base.model.Department
-import org.openurp.edu.base.model.Semester
-import org.openurp.edu.base.web.ProjectSupport
+import org.openurp.base.edu.model.Semester
+import org.openurp.boot.edu.helper.ProjectSupport
 import org.openurp.edu.warning.model.{GradeWarning, WarningType}
 
 

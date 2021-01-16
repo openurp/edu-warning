@@ -22,7 +22,7 @@ import java.time.LocalDate
 
 import org.beangle.commons.collection.Collections
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.openurp.edu.base.model.{Project, Semester, Student}
+import org.openurp.base.edu.model.{Project, Semester, Student}
 import org.openurp.edu.warning.model.GradeWarning
 
 class AutoBatchStat extends AbstractJob {

@@ -19,8 +19,8 @@
 package org.openurp.edu.warning.service.impl
 
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.data.dao.impl.BaseServiceImpl
-import org.openurp.edu.base.model.{Semester, Student}
+import org.openurp.base.edu.model.{Semester, Student}
+import org.openurp.edu.grade.BaseServiceImpl
 import org.openurp.edu.grade.course.model.CourseGrade
 import org.openurp.edu.grade.course.service.impl.BestGradeFilter
 import org.openurp.edu.grade.model.Grade
@@ -31,7 +31,7 @@ abstract class AllGradeStat extends BaseServiceImpl with UnpassedCreditsStatServ
 
   def stat(std: Student, semester: Semester): Float
 
-  def getUnPassed(std: Student, semester: Semester): collection.Seq[CourseGrade] = {
+  def getUnPassed(std: Student, semester: Semester): Iterable[CourseGrade] = {
     val query = OqlBuilder.from(classOf[CourseGrade], "grade")
     query.where("grade.std = :std", std)
     query.where("grade.status =:status", Grade.Status.Published)
