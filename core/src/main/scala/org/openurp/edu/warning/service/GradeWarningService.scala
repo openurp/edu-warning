@@ -18,8 +18,8 @@
  */
 package org.openurp.edu.warning.service
 
-import org.openurp.edu.base.model.Student
-import org.openurp.edu.base.model.Semester
+import org.openurp.base.edu.model.Student
+import org.openurp.base.edu.model.Semester
 
 trait GradeWarningService {
 

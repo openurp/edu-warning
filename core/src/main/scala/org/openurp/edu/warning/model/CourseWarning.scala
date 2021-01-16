@@ -20,7 +20,7 @@ package org.openurp.edu.warning.model
 
 import org.beangle.data.model.LongId
 import org.beangle.data.model.pojo.Updated
-import org.openurp.edu.base.model.{Course, Semester}
+import org.openurp.base.edu.model.{Course, Semester}
 
 /**
  * 课程预警

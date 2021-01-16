@@ -18,7 +18,7 @@
  */
 package org.openurp.edu.warning.service.impl
 
-import org.openurp.edu.base.model.{Semester, Student}
+import org.openurp.base.edu.model.{Semester, Student}
 
 class UnpassedCreditsStat extends AllGradeStat {
   /**

@@ -18,7 +18,7 @@
  */
 package org.openurp.edu.warning.service.impl
 
-import org.openurp.edu.base.model.{Semester, Student}
+import org.openurp.base.edu.model.{Semester, Student}
 
 class UnpassedCountStat extends AllGradeStat {
 
@@ -26,7 +26,7 @@ class UnpassedCountStat extends AllGradeStat {
    * 统计自入学起不及格成绩门数总和
    */
   def stat(std: Student, semester: Semester): Float = {
-		getUnPassed(std, semester).size
+		getUnPassed(std, semester).size.toFloat
   }
 
 }
