@@ -6,7 +6,7 @@
 	<tr>
 		<td class="index_view" style="width:180px">
         [@b.form action="!search" name="courseWarningSearchForm" title="ui.searchForm" target="contentDiv" theme="search"]
-            [@edu_base.semester name="courseWarning.semester.id" label="学年学期" value=currentSemester /]
+            [@edu.semester name="courseWarning.semester.id" label="学年学期" value=currentSemester  /]
             [@b.textfield name="courseWarning.course.code" label="课程代码" maxlength="32"/]
             [@b.textfield name="courseWarning.course.name" label="课程名称" maxlength="32"/]
             [@b.select name="courseWarning.course.department.id" label="院系" items=departments empty="..."/]

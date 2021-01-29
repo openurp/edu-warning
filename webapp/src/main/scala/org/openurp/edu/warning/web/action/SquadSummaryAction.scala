@@ -21,9 +21,9 @@ package org.openurp.edu.warning.web.action
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.api.view.View
 import org.beangle.webmvc.entity.action.RestfulAction
+import org.openurp.base.edu.model.Semester
 import org.openurp.base.model.Department
-import org.openurp.edu.base.model.{Semester, Squad}
-import org.openurp.edu.base.web.ProjectSupport
+import org.openurp.boot.edu.helper.ProjectSupport
 import org.openurp.edu.warning.model.{GradeWarning, WarningType}
 
 class SquadSummaryAction extends RestfulAction[GradeWarning] with ProjectSupport {
@@ -36,6 +36,7 @@ class SquadSummaryAction extends RestfulAction[GradeWarning] with ProjectSupport
         case _ => entityDao.get(classOf[Semester], semesterId.get)
       }
     }
+    put("project", getProject)
     put("currentSemester", semester)
 
     val departId = getInt("departId").get

@@ -18,8 +18,8 @@
  */
 package org.openurp.edu.warning
 
-import org.openurp.app.Urp
+import org.beangle.ems.app.Ems
 
 object Constants {
-  val AttachmentBase = Urp.home + "/edu/warning/"
+  val AttachmentBase = Ems.home + "/edu/warning/"
 }

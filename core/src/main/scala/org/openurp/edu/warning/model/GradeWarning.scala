@@ -18,14 +18,11 @@
  */
 package org.openurp.edu.warning.model
 
-import org.openurp.edu.base.model.Student
-import org.openurp.edu.base.model.Semester
-import scala.collection.mutable.Buffer
-import scala.collection.mutable.ListBuffer
-import org.openurp.edu.base.model.Course
+import org.openurp.base.edu.model.Student
+import org.openurp.base.edu.model.Semester
 import org.beangle.data.model.LongId
-import org.openurp.edu.base.ProjectBased
 import org.beangle.data.model.pojo.Updated
+import org.openurp.base.edu.ProjectBased
 
 /**
  * 学业预警情况

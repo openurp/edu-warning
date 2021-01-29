@@ -23,10 +23,7 @@ import org.beangle.data.orm.MappingModule
 class DefaultMapping extends MappingModule {
 
 	def binding(): Unit = {
-		defaultIdGenerator("auto_increment")
-
 		bind[WarningType]
-
 		bind[GradeWarning]
 
 		bind[StatMethod] declare { e =>

@@ -5,7 +5,7 @@
   <tr>
     <td class="index_view" >
     [@b.form name="recordSearchForm" action="!search" target="recordlist" title="ui.searchForm" theme="search"]
-      [@edu_base.semester name="record.semester.id" label="学年学期" value=currentSemester /]
+      [@edu.semester name="record.semester.id" label="学年学期" value=currentSemester /]
       [@b.textfield label="姓名" name="record.file.std.user.name" value="" /]
       [@b.textfield label="学号" name="record.file.std.user.code" value="" /]
       [@b.select name="record.file.std.state.department.id" label="院系" items=departments empty="..."/]

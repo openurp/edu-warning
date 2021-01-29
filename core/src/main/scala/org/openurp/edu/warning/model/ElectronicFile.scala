@@ -21,7 +21,7 @@ package org.openurp.edu.warning.model
 import org.beangle.commons.collection.Collections
 import org.beangle.data.model.LongId
 import org.beangle.data.model.pojo.Updated
-import org.openurp.edu.base.model.Student
+import org.openurp.base.edu.model.Student
 
 import scala.collection.mutable
 

@@ -23,8 +23,8 @@ import java.time.Instant
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.api.view.View
 import org.beangle.webmvc.entity.action.RestfulAction
-import org.openurp.edu.base.model.{Course, Semester}
-import org.openurp.edu.base.web.ProjectSupport
+import org.openurp.base.edu.model.{Course, Semester}
+import org.openurp.boot.edu.helper.ProjectSupport
 import org.openurp.edu.grade.course.model.CourseGrade
 import org.openurp.edu.warning.model.CourseWarning
 
@@ -42,6 +42,7 @@ class CourseWarningAction extends RestfulAction[CourseWarning] with ProjectSuppo
       }
     }
     put("currentSemester", semester)
+    put("project",getProject)
     put("departments", getDeparts)
     super.indexSetting()
   }

@@ -23,8 +23,8 @@ import java.time.Instant
 import org.beangle.cdi.{Container, ContainerAware}
 import org.beangle.commons.collection.Collections
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.data.dao.impl.BaseServiceImpl
-import org.openurp.edu.base.model.{Semester, Student}
+import org.openurp.base.edu.model.{Semester, Student}
+import org.openurp.edu.grade.BaseServiceImpl
 import org.openurp.edu.warning.model.{GradeWarning, StatMethod, WarningType}
 import org.openurp.edu.warning.service.{GradeWarningService, UnpassedCreditsStatService}
 

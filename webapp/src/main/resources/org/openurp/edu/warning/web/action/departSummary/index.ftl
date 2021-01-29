@@ -27,7 +27,7 @@
 </style>
 [@b.head/]
 [@b.toolbar title="预警情况汇总"/]
-[@edu_base.semester_bar name="semester.id" value=currentSemester/]
+[@edu.semester_bar name="semester.id" value=currentSemester /]
 
 <table border="0" width="100%" align="center">
 	<tr>
