@@ -55,6 +55,14 @@ class GradeWarningAction extends RestfulAction[GradeWarning] with ProjectSupport
       case "1" => builder.where("gradeWarning.warningType.level=0")
       case _ =>
     })
+    val semesterId = getInt("gradeWarning.semester.id")
+    val semester = {
+      semesterId match {
+        case None => getCurrentSemester
+        case _ => entityDao.get(classOf[Semester], semesterId.get)
+      }
+    }
+    builder.where("gradeWarning.semester=:semester", semester)
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }
@@ -64,7 +72,7 @@ class GradeWarningAction extends RestfulAction[GradeWarning] with ProjectSupport
     gradeWarnings.foreach(gradeWarning => {
       gradeWarningservice.autoStat(gradeWarning.std, gradeWarning.semester)
     })
-    redirect("search", "统计完成")
+    redirect("search", s"&gradeWarning.semester.id=${gradeWarnings.head.semester.id}&orderBy=gradeWarning.std.user.code&isGreen=0","统计完成")
   }
 
   def courseGradeInfo(): View = {

@@ -8,11 +8,10 @@
 	bg.form.submit(document.indexForm,  "${b.url("depart-summary")}", "_blank");
 	}
 [/@]
-<table class="indexpanel">
-	<tr>
-		<td class="index_view" style="width:180px">
+<div class="search-container">
+	<div class="search-panel">
         [@b.form action="!search" name="gradeWarningSearchForm" title="ui.searchForm" target="contentDiv" theme="search"]
-            [@edu.semester name="gradeWarning.semester.id" label="学年学期" value=currentSemester /]
+            [@urp_base.semester name="gradeWarning.semester.id" label="学年学期" value=currentSemester /]
             [@b.textfield label="学号" name="gradeWarning.std.user.code" value="" /]
             [@b.textfield label="姓名" name="gradeWarning.std.user.name" value="" /]
             [@b.textfield label="年级" name="gradeWarning.std.state.grade" value="" /]
@@ -24,11 +23,11 @@
 							<option value="0" selected="selected">有预警</option>
 							<option value="1">未预警</option>
             [/@]
+					<input type="hidden" name="orderBy" value="gradeWarning.std.user.code"/>
         [/@]
-		</td>
-		<td class="index_content">
+	</div>
+	<div class="search-list">
         [@b.div id="contentDiv" href="!search?orderBy=gradeWarning.std.user.code & gradeWarning.semester.id="+currentSemester.id + "&isGreen=0" /]
-		</td>
-	</tr>
-</table>
+	</div>
+</div>
 [@b.foot/]

@@ -27,7 +27,7 @@
 </style>
 [@b.head/]
 [@b.toolbar title="预警情况汇总"/]
-[@edu.semester_bar name="semester.id" value=currentSemester /]
+[@urp_base.semester_bar name="gradeWarning.semester.id" value=currentSemester /]
 
 <table border="0" width="100%" align="center">
 	<tr>
@@ -105,11 +105,11 @@
 					<td>合计</td>
 					<td>${total!}</td>
 					<td>${totalRed}</td>
-					<td>${totalRed/total*100}%</td>
+					<td>[#if total!=0]${totalRed/total*100}%[/#if]</td>
 					<td>${totalYELLOW}</td>
-					<td>${totalYELLOW/total*100}%</td>
+					<td>[#if total!=0]${totalYELLOW/total*100}%[/#if]</td>
 					<td>${totalGREEN}</td>
-					<td>${totalGREEN/total*100}%</td>
+					<td>[#if total!=0]${totalGREEN/total*100}%[/#if]</td>
 				</tr>
 				</tbody>
 			</table>

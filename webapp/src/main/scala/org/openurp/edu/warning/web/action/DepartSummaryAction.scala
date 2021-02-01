@@ -30,7 +30,7 @@ import org.openurp.edu.warning.model.{GradeWarning, WarningType}
 class DepartSummaryAction extends RestfulAction[GradeWarning] with ProjectSupport {
 
   override def index(): View = {
-    val semesterId = getInt("semester.id")
+    val semesterId = getInt("gradeWarning.semester.id")
     val semester = {
       semesterId match {
         case None => getCurrentSemester

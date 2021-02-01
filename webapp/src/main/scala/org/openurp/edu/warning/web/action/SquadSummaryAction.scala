@@ -21,7 +21,7 @@ package org.openurp.edu.warning.web.action
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.api.view.View
 import org.beangle.webmvc.entity.action.RestfulAction
-import org.openurp.base.edu.model.Semester
+import org.openurp.base.edu.model.{Semester, Squad}
 import org.openurp.base.model.Department
 import org.openurp.boot.edu.helper.ProjectSupport
 import org.openurp.edu.warning.model.{GradeWarning, WarningType}
@@ -29,7 +29,7 @@ import org.openurp.edu.warning.model.{GradeWarning, WarningType}
 class SquadSummaryAction extends RestfulAction[GradeWarning] with ProjectSupport {
 
   override def index(): View = {
-    val semesterId = getInt("semester.id")
+    val semesterId = getInt("gradeWarning.semester.id")
     val semester = {
       semesterId match {
         case None => getCurrentSemester
@@ -39,6 +39,7 @@ class SquadSummaryAction extends RestfulAction[GradeWarning] with ProjectSupport
     put("project", getProject)
     put("currentSemester", semester)
 
+    val a = getInt("departId")
     val departId = getInt("departId").get
     val builder = OqlBuilder.from(classOf[GradeWarning].getName, "gw")
     builder.where("gw.semester=:semester", semester)

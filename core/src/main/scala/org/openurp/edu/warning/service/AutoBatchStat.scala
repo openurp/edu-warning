@@ -69,7 +69,7 @@ class AutoBatchStat extends AbstractJob {
     if (rs.isEmpty) {
       val builder2 = OqlBuilder.from(classOf[Semester], "semester")
         .where("semester.calendar in(:calendars)", project.calendars)
-      builder2.orderBy("abs(extract(day from(current_date()-semester.beginOn)))")
+      builder2.orderBy("abs(semester.beginOn - current_date() + semester.endOn - current_date())")
       builder2.cacheable()
       builder2.limit(1, 1)
       val rs2 = entityDao.search(builder2)

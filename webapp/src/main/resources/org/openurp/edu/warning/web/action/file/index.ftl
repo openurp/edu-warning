@@ -1,9 +1,8 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="电子档案"/]
-<table class="indexpanel">
-  <tr>
-    <td class="index_view" >
+<div class="search-container">
+  <div class="search-panel">
     [@b.form name="fileSearchForm" action="!search" target="filelist" title="ui.searchForm" theme="search"]
       [@b.textfield label="姓名" name="electronicFile.std.user.name" value="" /]
       [@b.textfield label="学号" name="electronicFile.std.user.code" value="" /]
@@ -11,9 +10,8 @@
       [@b.textfield label="班级" name="electronicFile.std.state.squad.name" value="" /]
       <input type="hidden" name="orderBy" value="std.user.code"/>
     [/@]
-    </td>
-    <td class="index_content">[@b.div id="filelist" href="!search?orderBy=std.user.code"/]
-    </td>
-  </tr>
-</table>
+  </div>
+  <div class="search-list">[@b.div id="filelist" href="!search?orderBy=std.user.code"/]
+  </div>
+</div>
 [@b.foot/]
