@@ -2,6 +2,6 @@
 <orm>
   <mapping class="org.openurp.edu.warning.model.DefaultMapping" />
   <naming>
-    <profile package = "org.openurp.edu.warning" pluralize="true" schema="edu_warning"/>
+    <profile package = "org.openurp.edu.warning" pluralize="true" schema="warning"/>
   </naming>
 </orm>
